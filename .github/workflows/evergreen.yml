@@ -1,0 +1,28 @@
+name: Evergreen
+
+# A scheduled run keeps one fix pull request (evergreen/fixes) and one tracking issue current.
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: evergreen
+  cancel-in-progress: false
+
+jobs:
+  evergreen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # `main` until the next release ships `fix-pr` and `tracking-issue`; then pin a release tag.
+      - uses: arminazimi/evergreen@main
+        with:
+          fix-pr: "true"
+          tracking-issue: "true"
+          fail-on-severity: none

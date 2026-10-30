@@ -1,0 +1,7 @@
+{
+  "name": "evergreen-action-sample",
+  "private": true,
+  "version": "1.0.0",
+  "engines": { "node": ">=18" },
+  "dependencies": { "request": "^2.88.0" }
+}
